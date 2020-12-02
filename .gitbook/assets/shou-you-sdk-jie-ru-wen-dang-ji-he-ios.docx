@@ -1,0 +1,512 @@
+
+        <html xmlns:v="urn:schemas-microsoft-com:vml"
+        xmlns:o="urn:schemas-microsoft-com:office:office"
+        xmlns:w="urn:schemas-microsoft-com:office:word"
+        xmlns="http://www.w3.org/TR/REC-html40">
+        <head><meta http-equiv=Content-Type content="text/html;  
+        charset=utf-8">
+        <style type="text/css">
+            table  
+            {  
+                border-collapse: collapse;
+                border: none;  
+                width: 100%;  
+            }  
+            td  
+            {  
+                border: solid #CCC 1px;  
+            }  
+            .codestyle{
+                word-break: break-all;
+                background:silver;mso-highlight:silver;
+            }
+        </style>
+        <meta name=ProgId content=Word.Document>
+        <meta name=Generator content="Microsoft Word 11">
+        <meta name=Originator content="Microsoft Word 11">
+        <xml><w:WordDocument><w:View>Print</w:View></xml></head>
+        <body><h1>海外SDK</h1><div style="margin-left:20px;"><h2>1、1、R2 SDK使用入门</h2><div style="margin-left:20px;"><h3>1.1、1.1 R2SDK集成配置</h3><div style="margin-left:30px;"><h2>将 R2SDK添加至您的iOS项目</h2>
+<h2>前提条件</h2>
+<ul>
+<li>
+<p>安装以下应用：
+Xcode 11.0 或更高版本</p>
+</li>
+<li>确保您的项目满足以下要求：
+您的项目必须针对 iOS 8 或更高版本。</li>
+<li>设置一台 iOS 真机设备运行您的应用。</li>
+</ul>
+<h2>添加SDK</h2>
+<p>请将R2SDKFramework.framework、R2SDK.bundle添加到您的iOS项目中，在弹出的选择框中（如下图所示）：选中 "Copy items if needed"与 "Create groups"并选择被添加的target为你的应用工程。点击Finish完成Framework的添加。
+<img src="http://doc.r2games.com/server/../Public/Uploads/2020-11-27/5fc0b85bc274b.png" alt="" /></p>
+<h2>集成配置</h2>
+<p>请在项目的info.plist文件中增加如下字段。注意此处必须配置，否则无法成功集成R2SDK。</p>
+<h5>1、R2 SDK必须配置当前游戏的Game ID，如下图所示：</h5>
+<p><img src="http://doc.r2games.com/server/../Public/Uploads/2020-11-27/5fc0aaa8246e5.png" alt="" />
+key:必须为 r2gameid
+type:必须为 string
+value:游戏被分配的id （请咨询sdk服务器端技术人员）</p>
+<h5>2、配置当前游戏的发布渠道，如下图所示：</h5>
+<p><img src="http://doc.r2games.com/server/../Public/Uploads/2020-11-27/5fc0ab130c52d.png" alt="" />
+key:必须为 R2Platform
+type:必须为 string
+value:游戏发布渠道（若游戏发布在苹果的APP STORE,其值需为appstore）</p>
+<h5>3、配置当前游戏是否为新游戏的标记，如下图所示：</h5>
+<p><img src="http://doc.r2games.com/server/../Public/Uploads/2020-11-27/5fc0abc5c7d16.png" alt="" />
+key:必须为 R2_NEW_GAME_FLAG
+type:必须为 String
+value:必须为200 </p>
+<h5>4、 如需使用R2SDK集成的打点服务，请增加如下配置（如果不需要集成R2 SDK打点服务，请忽略，R2SDK打点服务据点请看）：</h5>
+<p>请增加如下字段R2_TRACK_APPID、R2_TRACK_SECRET_KEY（具体值若不详请咨询SDK服务器端技术人员）。如需接入Adjust,请增加ADJUST_APP_TOKEN、ADJUST_SANDBOX。否则请移除ADJUST_APP_TOKEN、ADJUST_SANDBOX。
+<img src="http://doc.r2games.com/server/../Public/Uploads/2020-11-27/5fc0bb3139cb3.png" alt="" /></p>
+<h5>5、请确保工程增加了Sign in With Apple功能</h5>
+<p><img src="http://doc.r2games.com/server/../Public/Uploads/2020-11-27/5fc0bd316a2ed.png" alt="" /></p></div></div><h2>2、2、第三方SDK集成配置</h2><div style="margin-left:20px;"><h3>2.1、2.1 Facebook集成配置</h3><div style="margin-left:30px;"><h4>添加Framewrok</h4>
+<p>使用R2 Facebook API 需要添加 FBSDKCoreKit.framework,FBSDKLoginKit.framework,FBSDKShareKit.framework 和 R2FacebookFramework.framework.
+FBSDKCoreKit,FBSDKLoginKit,FBSDKShareKit是动态库，需要选中target -> General -> Frameworks,Libraries,and Embedded Content选项中将其设为Embed&Sign，如图所示：
+<img src="http://doc.r2games.com/server/../Public/Uploads/2020-11-27/5fc0ce352fc89.png" alt="" /></p>
+<h4>配置项目Info.plist</h4>
+<p>在xcode中，找到你项目的Info.plist，鼠标右键点击，然后选择 "Open As Source Code".在打开的界面中，添加如下配置：</p>
+<pre><code class="language-objective-c">&lt;key&gt;CFBundleURLTypes&lt;/key&gt;
+&lt;array&gt;
+&lt;dict&gt;
+&lt;key&gt;CFBundleURLSchemes&lt;/key&gt;
+&lt;array&gt;
+&lt;string&gt;fb{your-app-id}&lt;/string&gt;
+&lt;/array&gt;
+&lt;/dict&gt;
+&lt;/array&gt;
+&lt;key&gt;FacebookAppID&lt;/key&gt;
+&lt;string&gt;{your-app-id}&lt;/string&gt;
+&lt;key&gt;FacebookDisplayName&lt;/key&gt;
+&lt;string&gt;{your-app-name}&lt;/string&gt;
+&lt;key&gt;LSApplicationQueriesSchemes&lt;/key&gt;
+&lt;array&gt;
+ &lt;string&gt;fbapi&lt;/string&gt;
+  &lt;string&gt;fbapi20130214&lt;/string&gt;
+  &lt;string&gt;fbapi20130410&lt;/string&gt;
+  &lt;string&gt;fbapi20130702&lt;/string&gt;
+  &lt;string&gt;fbapi20131010&lt;/string&gt;
+  &lt;string&gt;fbapi20131219&lt;/string&gt;
+  &lt;string&gt;fbapi20140410&lt;/string&gt;
+  &lt;string&gt;fbapi20140116&lt;/string&gt;
+  &lt;string&gt;fbapi20150313&lt;/string&gt;
+  &lt;string&gt;fbapi20150629&lt;/string&gt;
+  &lt;string&gt;fbapi20160328&lt;/string&gt;
+  &lt;string&gt;fbauth&lt;/string&gt;
+  &lt;string&gt;fb-messenger-share-api&lt;/string&gt;
+  &lt;string&gt;fbauth2&lt;/string&gt;
+  &lt;string&gt;fbshareextension&lt;/string&gt;
+  &lt;string&gt;fb&lt;/string&gt;
+&lt;/array&gt;
+&lt;key&gt;NSPhotoLibraryUsageDescription&lt;/key&gt;
+&lt;string&gt;{human-readable reason for photo access}&lt;/string&gt;</code></pre></table>
+<ul>
+<li>注:请将{your-app-id}替换为你自身游戏对应的由Facebook开发者后台分配的APP ID. 将{Your App Name}替换为你应用在Facebook开发者后台上配置的Display Name.将{human-readable reason for photo access}替换为你需要访问相册的原因。如：This app requires access to the photo library.</li>
+</ul>
+<h4>配置Build Settings</h4>
+<p>1、打开你的Xcode工程，在导航栏找到Build Settings选项。
+2、选择Other Linker Flags进行编辑。
+3、在Other Linker Flags选项中添加-ObjC标记。
+4、 在你的Xcode项目的"Build Phases"的Link Binary with Libraries配置项下引入系统Accelerate.framework、libc + +.tbd。(R2FacebookSDK v2.3.0后需新增该引用库)</p></div></div><h2>3、3、R2SDK API介绍</h2><div style="margin-left:20px;"><h3>3.1、3.1 SDK初始化以及逆初始化接口</h3><div style="margin-left:30px;"><p>API接口调用须知：
+在调用任何API接口前请务必正确引入#import<R2SDKFramework/R2SDKFramework.h></p>
+<h3>R2SDK初始化接口</h3>
+<p><strong>功能说明：</strong>
+在应用启动以及关闭的时候，需要对SDK做一些初始化操作，以及逆初始化操作。请将以下代码添加到AppDelegate.m 文件中。</p>
+<pre><code class="language-objective-c">- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [[R2SDKMgrApi sharedInstance]sdkInit];
+    return YES;
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+     [[R2SDKMgrApi sharedInstance]sdkUninit];
+
+}</code></pre></table>
+<h3>R2SDK 打点初始化接口</h3>
+<ul>
+<li>如项目需要集成R2SDK打点功能，请在didFinishLaunchingWithOptions:方法中调用该初始化接口，否则无需调用。</li>
+</ul>
+<pre><code class="language-objective-c">
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+ [R2ConnectHelper initTrackSDK];
+}</code></pre></table></div><h3>3.2、3.2 游客登录接口</h3><div style="margin-left:30px;"><h3>游客登录接口</h3>
+<p>该接口会产生一个固定的游客账号，当用户卸载APP，或者下次进行游客登录时会返回上一次产生的游客账号，即使玩家不对其进行绑定操作。这样的游客账号不容易丢失，能有效保障用户的留存。</p>
+<pre><code class="language-objective-c">[R2SDKApi loginAsyncWithFixedGuestAccount:^(int code, NSString *msg, R2LoginResponse *result) {
+        if (code == R2_LOGIN_SUCCESS &amp;&amp; result) {
+          //取得帐号的 r2 uid，便于游戏自身定位玩家
+        NSString *r2UserId = result.r2Uid;          
+          //取得相关验证登录合法性的数据,若不详请咨询SDK服务器端技术人员
+        NSString *loginTimestamp = result.timestamp;           
+        NSString *sign = result.sign;           
+        NSLog(@&quot;current r2 uid = %@&quot;,r2UserId); 
+         //发送给服务器进行登录验证        
+        NSLog(@&quot;send [r2uid=%@,timestamp=%@,sign=%@] to the game server for the verification&quot;,r2UserId,loginTimestamp,sign);
+        }else{
+        NSLog(@&quot;failed to login，code:%d,error:%@&quot;,code,msg);
+        }
+    }];</code></pre></table></div><h3>3.3、3.3 判断有无token接口</h3><div style="margin-left:30px;"><p>该接口会判断是否本地有token，有则为YES,否则为NO。</p>
+<pre><code class="language-objective-c">if([[R2SDKMgrApi sharedInstance]isHasCurrentToken]){
+         //有token
+     }else{
+         //没有token
+     }</code></pre></table></div><h3>3.4、3.4 token登录接口</h3><div style="margin-left:30px;"><p>该接口内部会判断有无token,有token就做token登录，没有token的话会回调-100的错误码。</p>
+<pre><code class="language-objective-c">[[R2SDKMgrApi sharedInstance]doTokenLogin:^(int code, NSString *msg, R2LoginResponse *result) {
+           if (code == R2_LOGIN_SUCCESS &amp;&amp; result) {
+            //取得帐号的 r2 uid，便于游戏自身定位玩家
+            NSString *r2UserId = result.r2Uid;
+            //取得相关验证登录合法性的数据,若不详请咨询SDK服务器端技术人员
+            NSString *loginTimestamp = result.timestamp;
+            NSString *sign = result.sign;
+            NSLog(@&quot;current r2 uid = %@&quot;,r2UserId);
+            NSLog(@&quot;send [r2uid=%@,timestamp=%@,sign=%@] to the game server for the          verification&quot;,r2UserId,loginTimestamp,sign);
+           }else{
+            NSLog(@&quot;failed to login，code:%d,error:%@&quot;,code,msg);
+           }
+        }];</code></pre></table></div><h3>3.5、3.5 开始新账号登录接口</h3><div style="margin-left:30px;"><p>直接调用该接口，会登录产生一个全新的uid。适用于在游戏中需要产生一个新的游戏账号。</p>
+<pre><code class="language-objective-c"> [[R2SDKMgrApi sharedInstance]loginWithBandNewAccount:^(int code, NSString *msg, R2LoginResponse *result) {
+        if (code == R2_LOGIN_SUCCESS &amp;&amp; result) {
+            //取得帐号的 r2 uid，便于游戏自身定位玩家
+            NSString *r2UserId = result.r2Uid;
+            //取得相关验证登录合法性的数据,若不详请咨询SDK服务器端技术人员
+            NSString *loginTimestamp = result.timestamp;
+            NSString *sign = result.sign;
+            NSLog(@&quot;current r2 uid = %@&quot;,r2UserId);
+            NSLog(@&quot;send [r2uid=%@,timestamp=%@,sign=%@] to the game server for the verification&quot;,r2UserId,loginTimestamp,sign);
+        }else{
+            NSLog(@&quot;failed to login，code:%d,error:%@&quot;,code,msg);
+        }
+    }];</code></pre></table></div><h3>3.6、3.6 登出接口</h3><div style="margin-left:30px;"><p>该接口可以实现清除当前缓存token并退出。</p>
+<pre><code class="language-objective-c">[[R2SDKMgrApi  sharedInstance] logout];</code></pre></table></div><h3>3.7、3.7 Apple第三方登录接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来完成Apple ID登录，用户登录并授权成功后，会自动绑定R2UID。接口回调数据中,包括玩家Apple账号的用户ID，以及对应的R2UID,是否绑定Apple字段isBoundToApple。只有玩家在做Apple ID登录时将邮箱账号授权，才会返回玩家Apple账号的个人昵称和电子邮箱。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)signInFromViewController:(UIViewController*)viewController onCompletionHandler:(R2AppleApiCompletionHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController:当前活动的UIViewController （必须）
+handler：接口回调 (必须)， loginResponse为玩家登录数据，包含r2uid等。accoutInfo为包含Apple账号信息。isBoundToApple字段用来判断是否绑定Apple账号。</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">  [[R2AppleSignHelper sharedInstance]signInFromViewController:self onCompletionHandler:^(int code, NSString * _Nonnull msg, R2LoginResponse * _Nonnull loginResponse, NSDictionary * _Nonnull accoutInfo) {
+      if (code == 0) {
+         //取得帐号的 r2 uid，便于游戏自身定位玩家
+          NSString *r2UserId = loginResponse.r2Uid;
+          self.r2uid = r2UserId;
+          //取得相关验证登录合法性的数据,若不详请咨询SDK服务器端技术人员
+          NSString *loginTimestamp = loginResponse.timestamp;
+          NSString *sign = loginResponse.sign;
+          NSLog(@&quot;current r2 uid = %@,apple accout %@&quot;,r2UserId,accoutInfo);
+          NSLog(@&quot;send [r2uid=%@,timestamp=%@,sign=%@] to the game server for the verification&quot;,r2UserId,loginTimestamp,sign);
+//是否绑定苹果账号
+          BOOL isBindToApple = loginResponse.isBoundToApple;
+          }else{
+          //登录失败
+          NSLog(@&quot;failed to login，code:%d,error:%@&quot;,code,msg);
+          }
+    }];</code></pre></table></div><h3>3.8、3.8 Apple账号绑定R2UID接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>调用该接口可以完成Apple账号与R2 UID的绑定。该接口内部逻辑为先做Apple登录，获取openId,再将该openId与r2UID进行绑定。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)bindAppleFromViewController:(UIViewController*)viewController withR2Uid:(NSString*)r2uid  onCompletionHandler:(R2AppleApiCompletionHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController:当前活动的UIViewController （必须）
+r2Uid : 当前游戏账号对应的R2 UID，用于绑定或者匹配玩家登录的Apple账号（必须）
+handler：接口回调 (必须)</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">NSString *r2uid = @&quot;309494784&quot;;
+ [[R2AppleSignHelper sharedInstance]bindAppleFromViewController:self
+                                                            withR2Uid:r2uid onCompletionHandler:^(int code, NSString * _Nonnull msg, R2LoginResponse * _Nonnull loginResponse, NSDictionary * _Nonnull accoutInfo) {
+           if (code == 0) {
+           NSLog(@&quot;Apple ID login and bind r2 account successfully,[%@ %@ ]&quot;,accoutInfo,loginResponse.r2Uid);
+           }else {
+           NSLog(@&quot;Apple ID login and bind r2 account failed,code = %d,msg = %@&quot;,code,msg);
+           }
+    }];</code></pre></table></div><h3>3.9、3.9 解绑接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>调用该接口可以解除R2 UID与第三方账号如Facebook或Game Center账号的绑定关系。解绑成功后的R2 UID可以再与Facebook或Game Center账号进行绑定。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)unwrap:(NSString *)muid openType:(NSString *)type completionHandler:(R2UnwrapHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>muid: R2 UID（必须）
+type：第三方账号类型（GameCenter传入"1"，Facebook账号传入"2", Google账号传入"8",Apple账号传入"9" ，Line账号传入“12”）（必须）
+handler：接口回调（必须）</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c"> NSString *r2uid = @&quot;310830120&quot;;
+  NSString *type = @&quot;1&quot;;
+  [[R2SDKMgrApi sharedInstance]unwrap:r2uid openType:type completionHandler:^(int code, NSString *msg, R2UnwrapResponse *result) {
+  if (code == 0) {
+     NSLog(@&quot;Unwrap successful,msg:%@&quot;,msg);
+   }else{
+     NSLog(@&quot;Unwrap failed,msg:%@,code:%d&quot;,msg,code);
+      }
+   }];</code></pre></table></div><h3>3.10、4.0 Game Center第三方登录接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来完成Game Center登录，用户登录并授权成功后，会自动绑定R2UID。接口回调数据中将包含玩家Game Center账号的个人基本信息，如玩家Game Center账号的用户ID。以及对应的R2UID,是否绑定Game Center字段isBoundToGameCenter等。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)UIDLoginWithViewController:(UIViewController *)viewController completionHandler:(R2GCUIDLoginHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController:当前活动的UIViewController （必须）
+handler：接口回调 (必须) result为玩家登录数据，包含r2uid等。playerData为NSDictionary类型，包含Game Center账号信息。</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">[[R2GameKitHelper sharedInstance]UIDLoginWithViewController:self completionHandler:^(int code, NSString *msg, R2LoginResponse *result, id playerData) {
+        if (code== R2_RESPONSE_SUCCESS_CODE &amp;&amp; result) {
+            //取得帐号的r2 uid，便于游戏自身定位玩家
+            NSString *r2UserId = result.r2Uid;
+            //判断是否绑定Game center字段
+            BOOL isBoundToGC = result.isBoundToGameCenter;
+            NSLog(@&quot;is bound to game center,%d&quot;,isBoundToGC);
+            //取得相关验证登录合法性的数据
+            NSString *loginTimestamp = result.timestamp;
+            NSString *sign = result.sign;
+            NSLog(@&quot;current r2 uid = %@&quot;,r2UserId);
+            NSLog(@&quot;send [r2uid=%@,timestamp=%@,sign=%@] to server for the verification&quot;,r2UserId,loginTimestamp,sign);
+        }
+        else{
+            NSLog(@&quot;failed to login,error=%@,code = %d&quot;,msg,code);
+        }
+    }];</code></pre></table></div><h3>3.11、4.1 Game Center账号绑定R2UID接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>调用该接口可以完成Game Center账号与R2 UID的绑定。该接口内部逻辑为先做Game Center登录，获取openId,再将该openId与r2UID进行绑定。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)bindWithGameCenterFromViewController:(UIViewController *)viewController r2userId:(NSString*)r2Uid completionHandler:(R2GCBindHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController:当前视图控制器
+r2Uid: 当前玩家的R2 UID （必须）
+handler：接口回调（必须）</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">   NSString *currentR2UserId = @&quot;313420930&quot;;
+   [[R2GameKitHelper sharedInstance] bindWithGameCenterFromViewController:self r2userId:currentR2UserId completionHandler:^(int code, NSString *msg, R2BindResponse *result) {
+   if (code == GAMECENTER_BIND_SUCCESS) {
+     NSLog(@&quot;bind successfully&quot;);
+   }else{
+     NSLog(@&quot;failed to bind,code:%d,error:%@&quot;,code,msg);
+        }
+    }];</code></pre></table></div></div><h2>4、4、 R2 Apple支付API介绍</h2><div style="margin-left:20px;"><h3>4.1、4.1获取支付产品本地信息接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来获取苹果iTunesConnect 开发者管理后台上配置的支付产品详细信息。在获取的产品详细信息中，产品的描述以及产品的价格和对应的货币单位等等信息将随着当前玩家的苹果账户所处的地区不同而不同。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)getLocalDetailsOfProductWithIDs:(NSArray*)productIDs onCompletionHandler:(R2SDKRequestProductsCompletionHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>productIDs:包含需要查询的支付产品的ID数组（必须）
+handler：接口回调（必须）</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c"> [[R2V2AppleIAP sharedInstance]getLocalDetailsOfProductWithIDs:@[@&quot;com.gg.ee.coins&quot;,@&quot;com.r2game.ios.sdk.eegems&quot;] onCompletionHandler:^(BOOL isSuccess, NSArray *R2AppleProducts) {
+        if (isSuccess &amp;&amp; R2AppleProducts &amp;&amp; [R2AppleProducts count]&gt;0) {
+            //数组中的实例是 R2SDKAppleProduct类型
+            for (R2SDKAppleProduct *p in R2AppleProducts) {
+                NSString* productId = p.productIdentifier;  //产品 id
+                NSString *price = p.stringPrice; //产品本地价格,保留小数点后面 2 位
+                NSString* currencyCode = p.priceCurrencyCode; //产品本地货币代码（如:USD）
+            }
+        }else{
+            NSLog(@&quot;[error: failed to request product details]&quot;);
+        }
+    }];</code></pre></table></div><h3>4.2、4.2支付接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来让玩家完成某一IAP产品的支付。接口的回调可以作为参考值，但是最终的发货请以和SDK服务器发货接口返回的结果为准。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)payV2FromViewController:(UIViewController*)gameViewController
+   usingLoadingView:(BOOL)yesOrNo
+          productId:(NSString*)productId
+           serverId:(NSString*)serverId
+             roleId:(NSString*)roleid
+           roleName:(NSString*)roleName
+          roleLevel:(int)roleLevel
+            gameCno:(NSString*)gameCno
+          extraData:(NSString*)extraData
+onCompletionHandler:(R2SDKPayCompletionHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>gameViewController:当前活动的UIViewController （必须）
+gameCno：游戏服务器产生的唯一订单号（必须）
+productId: 苹果itunesconnect应用管理后台上定义的支付产品ID （必须）
+serverId : 当前玩家所处服务器唯一标示ID（必须）
+yesOrNo: 支付过程中是否需要显示加载框（可选）
+roleid : 当前玩家游戏内的唯一角色标识符（可选）
+roleName: 当前玩家游戏内的角色名（可选）
+roleLevel: 当前玩家角色等级（可选）
+extraData：R2支付可自定义额外数据（透传字段，根据需求传入透传值）（可选）
+handler：接口回调（必须）</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c"> [[R2V2AppleIAP sharedInstance]payV2FromViewController:self usingLoadingView:YES productId:@&quot;2232&quot; serverId:@&quot;80001&quot; roleId:@&quot;123030&quot; roleName:@&quot;XXXX~*&quot; roleLevel:1015089810 gameCno:[[NSUUID UUID] UUIDString] extraData:@&quot;20200812173525800013888&quot; onCompletionHandler:^(int code, NSString * _Nonnull msg) {
+         if (code == 0) {
+               //msg will be the product  transactionId of the product if successful
+               NSLog(@&quot;**purchased successfully,the apple order id is %@&quot;,msg);
+
+           }
+
+//user cancels payment
+         else if (code == -223){
+             NSLog(@&quot;**user cancels the purchase&quot;);
+         }
+
+//failed to purchase
+        else {
+            NSLog(@&quot;failed to purchase,msg :%@&quot;,msg);
+               dispatch_async(dispatch_get_main_queue(), ^{
+
+//弹窗提示支付失败的msg,如游戏需要使用自身的弹框提示，可以注释掉此行showMessage代码
+                   [R2SDKUtils showMessage:msg duration:5];
+
+               });
+           }
+    }];</code></pre></table></div></div><h2>5、5、 R2 Facebook API介绍</h2><div style="margin-left:20px;"><h3>5.1、5.1 Facebook初始化接口</h3><div style="margin-left:30px;"><h3>前提条件</h3>
+<ul>
+<li>确保已经完成“2.1Facebook集成配置”</li>
+</ul>
+<p>调用以下接口前需引入#import <R2FacebookFramework/R2FacebookFramework.h>.
+引入头文件：#import <FBSDKCoreKit/FBSDKCoreKit.h>
+请在didFinishLaunchingWithOptions :方法中增加如下代码</p>
+<pre><code class="language-objective-c">- (BOOL)application:(UIApplication *)application
+didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+
+    [[FBSDKApplicationDelegate sharedInstance] application:application
+didFinishLaunchingWithOptions:launchOptions];
+
+//your code goes here
+
+return YES;
+}
+
+- (BOOL)application:(UIApplication *)application 
+            openURL:(NSURL *)url 
+            options:(NSDictionary&lt;UIApplicationOpenURLOptionsKey,id&gt; *)options {
+
+     BOOL handled = [[FBSDKApplicationDelegate sharedInstance] application:application
+    openURL:url
+    sourceApplication:options[UIApplicationOpenURLOptionsSourceApplicationKey]
+    annotation:options[UIApplicationOpenURLOptionsAnnotationKey]
+  ];
+  //your code goes here
+  // Add any custom logic here.
+  return handled;
+}</code></pre></table></div><h3>5.2、5.2 Facebook第三方登录接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来完成Facebook登录，用户登录并授权成功后，会自动绑定R2UID。如果用户授权成功后，下次会进行Facebook免登录界面登录。接口回调数据中将包含玩家Facebook账号的个人基本信息，如玩家Facebook账号的用户ID。以及对应的R2UID,是否绑定Facebook字段isBoundToFacebook等。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)loginFastWithViewController:(UIViewController *)viewController completionHandler:(R2FacebookUIDLoginCompletionHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController:当前活动的UIViewController （必须）
+handler：接口回调 (必须)， r2LoginResult为玩家登录数据，包含r2uid等。facebookLoginResult为包含Facebook账号信息。</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">[[R2FacebookHelper sharedInstance]loginFastWithViewController:self completionHandler:^(int code, NSString *msg, R2FacebookLoginResult *facebookLoginResult, R2LoginResponse *r2LoginResult) {
+        if (code == R2_RESPONSE_SUCCESS_CODE) {
+        NSLog(@&quot;Facebook login successfully,msg -&gt; %@,fbuid -&gt; %@,fbimageURL -&gt; %@,fbname -&gt; %@&quot;,msg,facebookLoginResult.fbUserId,facebookLoginResult.fbImageUrl,facebookLoginResult.fbUsername);
+        //取得帐号的r2 uid，便于游戏自身定位玩家
+        NSString *r2UserId = r2LoginResult.r2Uid;
+        //判断是否绑定Game center字段
+        BOOL isBoundToFB = r2LoginResult.isBoundToFacebook;
+        NSLog(@&quot;is bound to game center,%d&quot;,isBoundToFB);
+        //取得相关验证登录合法性的数据
+        NSString *loginTimestamp = r2LoginResult.timestamp;
+        NSString *sign = r2LoginResult.sign;
+        NSLog(@&quot;current r2 uid = %@&quot;,r2UserId);
+        NSLog(@&quot;send [r2uid=%@,timestamp=%@,sign=%@] to server for the verification&quot;,r2UserId,loginTimestamp,sign);
+    }else{
+        NSLog(@&quot;Facebook login failed,code -&gt; %d,msg -&gt; %@&quot;,code,msg);
+    }
+    }];</code></pre></table></div><h3>5.3、5.3 Facebook账号绑定R2UID接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>调用该接口可以完成Facebook账号与R2 UID的绑定。该接口内部逻辑为先做Facebook登录，获取openId,再将该openId与r2UID进行绑定。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)bindFBWithViewController:(UIViewController *)viewController withReadPermissions:(NSArray *)permissions andR2UidToBeBound:(NSString*)r2uid completionHandler:(R2FBBindHandler)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController:当前活动的UIViewController （必须）
+permissions:需要的Facebook读取权限，比如：public_profile（必须）
+r2Uid : 当前游戏账号对应的R2 UID，用于绑定或者匹配玩家登录的facebook账号（必须）
+handler：接口回调 (必须)</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">  NSString *r2uid = @&quot;309494784&quot;;
+[[R2FacebookMgrHelper sharedHelper]bindFBWithViewController:self withReadPermissions:@[@&quot;public_profile&quot;] andR2UidToBeBound:r2uid completionHandler:^(int code, NSString *msg, R2FacebookLoginResult *result) {
+if (code == FACEBOOK_BIND_SUCCESS) {
+NSLog(@&quot;facebook login and bind r2 account successfully,[%@ %@ %@]&quot;,result.fbUserId,result.fbUsername,result.fbImageUrl);
+}else {
+NSLog(@&quot;facebook login and bind r2 account failed,code = %d,msg = %@&quot;,code,msg);
+}
+}];</code></pre></table></div><h3>5.4、5.4 检测Facebook登录状态接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来检测当前玩家是否已经成功登录了Facebook。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(BOOL)hasLoggedInFacebook;</code></pre></table>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">BOOL loggedIn =  [[R2FacebookHelper sharedInstance] hasLoggedInFacebook];
+ if (loggedIn) {
+        NSLog(@&quot;player has logged in with facebook&quot;);
+  }
+  else{
+        NSLog(@&quot;player has not log in with facebook yet&quot;);
+  }</code></pre></table></div><h3>5.5、5.5 Facebook登出接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来让当前玩家在游戏登出Facebook(该接口只是让玩家在游戏内处于未登录facebook状态,并不是让其在设备客户端的Facebook应用中登出)。强烈建议研发方在玩家退出游戏的时候调用该接口，同时也建议研发方在应用的App Delegate的方法：- (void)applicationWillTerminate:(UIApplication *)application 中调用该接口。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)logOut;</code></pre></table>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">[[R2FacebookHelper sharedInstance] logOut];</code></pre></table></div><h3>5.6、5.6 Facebook分享图片接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来分享图片到Facebook个人主页。注意Facebook官方要求图片尺寸必须小于12MB,并且需要用户在手机端安装了Facebook iOS app。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)shareImageFromViewController:(UIViewController *)viewController withShareImage:(UIImage *)image completionHandler:(R2FacebookCompletionHanlder)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController:当前活动的UIViewController （必须）
+image：分享的图片(必须)，不能为空
+handler：接口回调 (必须)，包含分享的结果,只需关注code和msg字段。当code为R2_FACEBOOK_SUCCESS_CODE表示成功。</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">  [[R2FacebookHelper sharedInstance]shareImageFromViewController:self withShareImage:[UIImage imageNamed:@&quot;1.jpg&quot;] completionHandler:^(int code, NSString *msg, NSDictionary *result) {
+        if (code == R2_FACEBOOK_SUCCESS_CODE) {
+            NSLog(@&quot;share image successfully&quot;);
+        }else{
+            NSLog(@&quot;share image failed,code %d,msg%@&quot;,code,msg);
+        }
+    }];</code></pre></table></div><h3>5.7、5.7 Facebook分享链接接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以直接调用该接口来让用户分享LinkContent到其Facebook.</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">-(void)shareLinkContentFromViewController:(UIViewController*)viewController contentURL:(NSString*)contentUrl  peopleIDs:(NSArray*)ids placeID:(NSString*)place completionHandler:(R2FacebookCompletionHanlder)handler;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController:当前活动的UIViewController （必须）
+contentUrl：分享被用户点击后导向的URL （必须）
+ids:指定接受该分享的用户IDs（可选）
+place：指定该分享显示的地区（可选）
+handler：接口回调</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c"> [[R2FacebookHelper sharedInstance]shareLinkContentFromViewController:self contentURL:@&quot;https://itunes.apple.com/us/app/heroes-evolved/id1173388413?mt=8&quot; peopleIDs:nil placeID:nil completionHandler:^(int code, NSString *msg, NSDictionary *result) {
+        if (code == R2_FACEBOOK_SUCCESS_CODE) {
+            NSLog(@&quot;Share successfully&quot;);
+        }else{
+            NSLog(@&quot;failed to share,msg %@ ,code %d&quot;,msg,code);
+        }
+    }];</code></pre></table></div></div><h2>6、6、客服Helpshift API介绍</h2><div style="margin-left:20px;"><h3>6.1、6.1 Helpshift初始化接口</h3><div style="margin-left:30px;"><p>请在你应用的AppDelegate.m 文件中引入头文件：#import <Helpshift/Support.h> 。
+然后在如下代理方法中做如下初始化代码配置：</p>
+<pre><code class="language-objective-c">#import &lt;Helpshift/Support.h&gt;
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
+{  ...
+[HelpshiftCore initializeWithProvider:[ HelpshiftSupport sharedInstance]];     [HelpshiftCore installForApiKey:@&quot;YOUR_API_KEY&quot; domainName:@&quot;YOUR_HELPSHIFT_DOMAIN&quot; appID:@&quot;YOUR_APP_ID&quot;];
+ ...    
+  return YES;
+ }</code></pre></table>
+<p>注：YOUR_API_KEY，YOUR_HELPSHIFT_DOMAIN，YOUR_APP_ID为Helpshift SDK集成需要的三个配置参数，若不知道其对应的值，请询问游戏运营人员或SDK客户端技术人员。</p></div><h3>6.2、6.2 Helpshift登入登出接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方在玩家登录游戏成功获取r2uid和玩家角色信息后，调用客服系统的登入接口，而当玩家退出游戏的时候，调用客服系统的登出接口。在登入接口指定用户的唯一标识符(必须)、昵称(如果有则传)，这样当玩家提问时Helpshift会自动填充玩家昵称。此接口为可选接口，但是建议研发调用。</p>
+<h4>登入接口形式：</h4>
+<pre><code class="language-objective-c">+ (void) login:(HelpshiftUser *)user;</code></pre></table>
+<h4>参数说明：</h4>
+<p>user: 玩家对象，在创建玩家时可以指定玩家的基本信息identifier \ name \ email 。其中identifier是必须传入SDK登录接口返回的r2uid。name和email是可选传入。name可传角色名，email传用户的email信息。</p>
+<h4>登入接口示例：</h4>
+<pre><code class="language-objective-c">NSString *r2uid = @&quot;30012562&quot;;  //当前账号r2uid  
+NSString *email = @&quot;&quot;;  //若当前无法获取该值，请直接传空字符串或者nil  
+NSString *roleName = @&quot;&quot;;  //若当前无法获取该值，请直接传空字符串或者nil 
+HelpshiftUserBuilder  *userBuilder = [[HelpshiftUserBuilder alloc]initWithIdentifier:r2uid andEmail:email]; 
+userBuilder.name = roleName;
+HelpshiftUser *user = [userBuilder build];
+[HelpshiftCore login:user];</code></pre></table>
+<h4>登出接口形式：</h4>
+<pre><code class="language-objective-c">+(void)logout:</code></pre></table>
+<h4>登出接口示例：</h4>
+<pre><code class="language-objective-c">[HelpshiftCore logout];</code></pre></table></div><h3>6.3、6.3 Helpshift联系客服接口</h3><div style="margin-left:30px;"><h4>功能说明：</h4>
+<p>研发方可以在游戏特定的地方调用该接口来展现客服系统界面。</p>
+<h4>接口形式：</h4>
+<pre><code class="language-objective-c">+ (void) showFAQs:(UIViewController *)viewController withConfig:(HelpshiftAPIConfig *)configObject;</code></pre></table>
+<h4>参数说明：</h4>
+<p>viewController: 当前应用活动的UIViewController（必须）
+configObject：该接口的配置对象（必须）</p>
+<h4>接口示例：</h4>
+<pre><code class="language-objective-c">//添加提票tags,用于标记玩家的提票，便于后台客服人员快速处理
+NSMutableArray *tags = [[NSMutableArray alloc]init];
+//研发方需要按照游戏自身逻辑，传入正确的tags,所有tags值必须由客服提供，不能随意传值
+//若无需使用tags进行标记，则无需添加保持tags为空数组即可
+[tags addObject:@&quot;vip5&quot;];
+
+//自定义数据，便于后台客服人员进一步了解相关玩家信息，若无特殊说明，传如下自定义、//数据即可所有自定义数据都可选，请保持key值不变
+NSMutableDictionary *metaDictionary = [[NSMutableDictionary alloc]init];
+[metaDictionary setObject: @&quot;320878973&quot; forKey:@&quot;r2uid&quot;];//当前账号r2uid
+[metaDictionary setObject: @&quot;server01&quot; forKey:@&quot;serverid&quot;];//服务器ID
+[metaDictionary setObject: @&quot;10&quot; forKey:@&quot;rolelevel&quot;];//角色等级
+[metaDictionary setObject: @&quot;GuanYu&quot; forKey:@&quot;rolename&quot;];//角色名称
+
+HelpshiftAPIConfigBuilder *builder = [[HelpshiftAPIConfigBuilder alloc] init];
+builder.customMetaData = [[HelpshiftSupportMetaData alloc] initWithMetaData:metaDictionary                                                                       andTags:tags];
+HelpshiftAPIConfig *apiConfig = [builder build];
+[HelpshiftSupport showFAQs:self withConfig:apiConfig];</code></pre></table></div></div></div></body></html>
