@@ -12,7 +12,7 @@
 
 请将R2SDKFramework.framework、R2SDK.bundle添加到您的iOS项目中，在弹出的选择框中（如下图所示）：选中 “Copy items if needed”与 “Create groups”并选择被添加的target为你的应用工程。点击Finish完成Framework的添加。
 
-![](../../.gitbook/assets/image.png)
+![](../../../.gitbook/assets/image.png)
 
 ### 集成配置 <a id="h2-u96C6u6210u914Du7F6E"></a>
 
@@ -29,7 +29,7 @@
 
 2、请确保工程增加了Sign in With Apple功能
 
-![](../../.gitbook/assets/5fc0bd316a2ed.png)
+![](../../../.gitbook/assets/5fc0bd316a2ed.png)
 
 
 
@@ -48,7 +48,7 @@
 
 （1）增加**ADJUST\_APP\_TOKEN** 字段，具体配置如下
 
-![](../../.gitbook/assets/jie-ping-20201202-xia-wu-6.09.27.png)
+![](../../../.gitbook/assets/jie-ping-20201202-xia-wu-6.09.27.png)
 
 * key:必须为   **ADJUST\_APP\_TOKEN** 
 * type:必须为 String 
@@ -56,7 +56,7 @@
 
 （2）增加**ADJUST\_SANDBOX**字段，具体配置如下
 
-![](../../.gitbook/assets/jie-ping-20201202-xia-wu-6.10.24.png)
+![](../../../.gitbook/assets/jie-ping-20201202-xia-wu-6.10.24.png)
 
 * key:必须为   **ADJUST\_SANDBOX**
 * type:必须为 Boolean 
@@ -68,7 +68,7 @@
 
 增加**R2\_FIREBASE\_TRACK**字段，具体配置如下
 
-![](../../.gitbook/assets/jie-ping-20201202-xia-wu-6.04.12.png)
+![](../../../.gitbook/assets/jie-ping-20201202-xia-wu-6.04.12.png)
 
 * key:必须为   **R2\_FIREBASE\_TRACK**
 * type:必须为 Boolean 
