@@ -4,9 +4,11 @@
 
 ## 海外SDK
 
-* [TEST](hai-wai-sdk/test/README.md)
-  * [test1](hai-wai-sdk/test/test1/README.md)
-    * [test1.1](hai-wai-sdk/test/test1/test1.1.md)
-  * [test2](hai-wai-sdk/test/test2.md)
-* [test2](hai-wai-sdk/test2.md)
+* [1、R2SDK使用入门](hai-wai-sdk/test/README.md)
+  * [1.1 R2SDK集成配置](hai-wai-sdk/test/test1.md)
+* [2、第三方SDK集成配置](hai-wai-sdk/test2/README.md)
+  * [2.1 Facebook集成配置](hai-wai-sdk/test2/2.1-facebook-ji-cheng-pei-zhi.md)
+  * [2.3 Helpshift集成配置](hai-wai-sdk/test2/2.3-helpshift-ji-cheng-pei-zhi.md)
+  * [2.4 Adjust集成配置](hai-wai-sdk/test2/2.4-adjust-ji-cheng-pei-zhi.md)
+* [Untitled](hai-wai-sdk/untitled.md)
 
