@@ -36,5 +36,8 @@
   * [5.5 Facebook登出接口](5-r2-facebook-api-jie-shao/5.5-facebook-deng-chu-jie-kou.md)
   * [5.6 Facebook分享图片接口](5-r2-facebook-api-jie-shao/5.6-facebook-fen-xiang-tu-pian-jie-kou.md)
   * [5.7 Facebook分享链接接口](5-r2-facebook-api-jie-shao/5.7-facebook-fen-xiang-lian-jie-jie-kou.md)
-* [Untitled](untitled.md)
+* [6.客服Helpshift API介绍](untitled/README.md)
+  * [6.1 Helpshift初始化接口](untitled/6.1-helpshift-chu-shi-hua-jie-kou.md)
+* [Untitled](untitled-1.md)
+* [45](45.md)
 
