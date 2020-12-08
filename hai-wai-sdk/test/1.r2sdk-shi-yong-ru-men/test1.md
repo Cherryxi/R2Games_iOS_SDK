@@ -5,7 +5,7 @@
 ### 前提条件 <a id="h2-u524Du63D0u6761u4EF6"></a>
 
 * 安装以下应用： Xcode 11.0 或更高版本
-* 确保您的项目满足以下要求： 您的项目必须针对 iOS 8 或更高版本。
+* 确保您的项目满足以下要求： 您的项目必须针对 iOS 9 或更高版本。
 * 设置一台 iOS 真机设备运行您的应用。
 
 ### 添加SDK <a id="h2--sdk"></a>
@@ -16,7 +16,7 @@
 
 ### 集成配置 <a id="h2-u96C6u6210u914Du7F6E"></a>
 
-1、请在项目的info.plist文件中增加如下字段。注意此处必须配置，否则无法成功集成R2SDK。请将info.plist 右键选择sourceCode方式打开，添加如下字段：如已添加则无需重复添加。
+1、请在项目的info.plist文件中增加如下字段。注意此处必须配置，否则无法成功集成R2SDK。请将info.plist 右键选择sourceCode方式打开，添加如下字段：如已添加则无需重复添加。请将{Your game id}替换成您游戏的game id参数。R2\_NEW\_GAME\_FLAG的值固定为200。
 
 ```text
  <key>R2GameID</key>
